@@ -35,7 +35,7 @@ function App() {
     setError('');
     try {
       const response = await axios.get(
-        `http://localhost:5000/weather?city=${encodeURIComponent(city)}`
+        `${import.meta.env.VITE_API_URL}/weather?city=${encodeURIComponent(city)}`
       );
       setWeatherData(response.data);
       navigate(`?city=${encodeURIComponent(city)}`, { replace: true });

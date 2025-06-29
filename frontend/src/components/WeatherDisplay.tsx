@@ -46,25 +46,24 @@ export const WeatherDisplay = ({ data }: { data: WeatherData }) => {
           className="temperature"
           animate={tempVariant}
           variants={{
-            hot: { 
-              rotate: [0, -15, 15, -15, 15, -15, 0], // Увеличенный размах
-              transition: {
-              duration: 0.8, // Более быстрая анимация
-              repeat: 3,
-              repeatType: "mirror", // Зеркальное повторение
-              ease: "easeInOut"
-              } 
-            },
-            cold: { 
-              rotate: [0, 10, -10, 10, -10, 10, 0],
-      transition: {
-        duration: 0.6, // Ещё быстрее
-              repeat: 5, // Больше повторений
-              ease: "easeOut" // Резкое начало
+          hot: {
+            x: [0, -0.5, 0.5, -0.3, 0.3, -0.2, 0], 
+            y: [0, 0.3, -0.2, 0.4, -0.3, 0.2, 0],
+            transition: {
+              duration: 0.4,
+              repeat: Infinity,
+              repeatType: "mirror"
             }
-            },
-            normal: { rotate: 0 }
-          }}
+          },
+          cold: {
+            rotate: [0, 0.3, -0.2, 0.4, -0.3, 0.2, 0], 
+            transition: {
+              duration: 0.3,
+              repeat: Infinity,
+              ease: "easeInOut"
+          }
+        }
+      }}
         >
           {Math.round(data.temperature)}°C
         </motion.p>

@@ -16,7 +16,7 @@ export const MemeDisplay = ({ data }: { data: WeatherData }) => {
     >
       <div className="meme-image-wrapper">
         <img 
-          src={`http://localhost:5000/images/${data.meme.image}`}
+          src={`${import.meta.env.VITE_API_URL}/images/${data.meme.image}`}
           alt="Погодный мем"
           className="meme-image"
           onError={(e) => {

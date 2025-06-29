@@ -8,49 +8,56 @@ export const AdminPanel = () => {
     image: '',
     text: ''
   });
-  const [message, setMessage] = useState('');
+  const [formMessage, setFormMessage] = useState('');
+  const [authMessage, setAuthMessage] = useState('');
+  const [password, setPassword] = useState('');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/memes', formData);
-      setMessage('Мем успешно добавлен!');
+      await axios.post(`${import.meta.env.VITE_API_URL}/memes`, formData, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      setFormMessage('Мем успешно добавлен!');
       setFormData({ category: '', image: '', text: '' });
     } catch (error) {
-      setMessage('Ошибка при добавлении мема');
+      setFormMessage('Ошибка при добавлении мема');
       console.error(error);
     }
   };
 
-const [password, setPassword] = useState('');
-const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-const handleAuth = (e: React.FormEvent) => {
-  e.preventDefault();
-  if (password === import.meta.env.VITE_ADMIN_PASSWORD) {
-    setIsAuthenticated(true);
-  } else {
-    setMessage('Неверный пароль');
-  }
-};
+  const handleAuth = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password === import.meta.env.VITE_ADMIN_PASSWORD) {
+      setIsAuthenticated(true);
+      setAuthMessage('');
+      setPassword('');
+    } else {
+      setAuthMessage('Неверный пароль');
+      setPassword('');
+    }
+  };
 
 if (!isAuthenticated) {
-  return (
-    <div className="admin-auth">
-      <h2>Введите пароль администратора</h2>
-      <form onSubmit={handleAuth}>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button type="submit">Войти</button>
-      </form>
-      {message && <p>{message}</p>}
-    </div>
-  );
-}
+    return (
+      <div className="admin-auth">
+        <h2>Введите пароль</h2>
+        <form onSubmit={handleAuth}>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <button type="submit">Войти</button>
+        </form>
+        {authMessage && <p className="error-message">{authMessage}</p>}
+      </div>
+    );
+  }
 
   return (
     <div className="admin-panel">
@@ -92,7 +99,7 @@ if (!isAuthenticated) {
         </div>
         <button type="submit">Добавить мем</button>
       </form>
-      {message && <p>{message}</p>}
+      {formMessage && <p>{formMessage}</p>} 
     </div>
   );
 };

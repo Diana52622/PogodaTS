@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon --exec tsx index.ts",
-    "start": "tsx index.ts",
-    "build": "tsc",
+    "build": "rm -rf dist && tsc && mkdir -p dist/data/images && cp data/memes.json dist/data/ && cp -r data/images/* dist/data/images/",
+    "start": "node dist/index.js",
     "test": "set NODE_OPTIONS=--experimental-vm-modules& jest --forceExit"
   },
   "keywords": [],
@@ -21,8 +21,6 @@
     "memory-cache": "^0.2.0"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.3.0",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/jest": "^29.5.14",

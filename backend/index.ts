@@ -15,29 +15,33 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
-app.use(cors());
+const allowedOrigins = [
+  'https://frontend123456.netlify.app',
+  'http://localhost:5000'
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  methods: ['GET', 'POST', 'OPTIONS'],
+  credentials: true
+}));
+
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve static files
 app.use('/images', express.static(path.join(__dirname, './data/images')));
 
-// API routes
 app.use('/weather', weatherRoutes);
 app.use('/memes', memeRoutes);
 
-// Health check endpoint
 app.get('/', (req, res) => {
     res.send('POGODA TS API is running');
 });
 
-// 404 handler
 app.use((req, res) => {
     res.status(404).json({ error: 'Not found' });
 });
 
-// Error handling middleware
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
     console.error(err.stack);
     res.status(500).json({ error: 'Internal server error' });
