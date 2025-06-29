@@ -3,43 +3,14 @@ import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { Request, Response } from 'express';
-import cache from "memory-cache";;
+import cache from "memory-cache";
+import {Meme, WeatherData, WeatherResponse } from './types.js'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const memesPath = path.resolve(__dirname, '../data/memes.json');
 
 const WEATHER_CACHE_DURATION = 15 * 60 * 1000;
-
-interface Meme {
-    image: string;
-    text: string;
-}
-
-interface WeatherData {
-    main: {
-        temp: number;
-        feels_like: number;
-        humidity: number;
-    };
-    weather: Array<{
-        main: string;
-        description: string;
-        icon: string;
-    }>;
-    name: string;
-}
-
-interface WeatherResponse {
-    city: string;
-    temperature: number;
-    weather: string;
-    weatherIcon: string;
-    feelsLike: number;
-    humidity: number;
-    meme: Meme;
-    cached?: boolean;
-}
 
 export const getWeather = async (req: Request, res: Response): Promise<Response> => {
     const city = req.query.city as string;

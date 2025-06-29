@@ -2,19 +2,11 @@ import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import express, { Request, Response } from 'express';
+import {Meme, MemesData} from './types.js'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const memesPath = path.resolve(__dirname, '../data/memes.json');
-
-interface Meme {
-    image: string;
-    text: string;
-}
-
-interface MemesData {
-    [key: string]: Meme[];
-}
 
 const validCategories = ['hot', 'warm', 'cold', 'normal', 'rain', 'snow', 'thunderstorm'];
 
