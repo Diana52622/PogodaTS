@@ -1,10 +1,5 @@
 import { useState } from 'react';
-
-interface MemeFormProps {
-  onSubmit: (formData: { category: string; image: string; text: string }) => void;
-  initialFormData?: { category: string; image: string; text: string };
-  formMessage: string;
-}
+import type { MemeFormProps } from '../types/weather';
 
 export const MemeForm = ({ onSubmit, initialFormData, formMessage }: MemeFormProps) => {
   const [formData, setFormData] = useState(initialFormData || { 

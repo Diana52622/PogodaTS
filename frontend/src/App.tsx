@@ -6,19 +6,7 @@ import { WeatherDisplay } from './components/WeatherDisplay';
 import { MemeDisplay } from './components/MemeDisplay';
 import './App.css';
 import { Link } from 'react-router-dom';
-
-interface WeatherData {
-  city: string;
-  temperature: number;
-  weather: string;
-  weatherIcon: string;
-  feelsLike: number;
-  humidity: number;
-  meme: {
-    image: string;
-    text: string;
-  };
-}
+import type { WeatherData } from './types/weather';
 
 function App() {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);

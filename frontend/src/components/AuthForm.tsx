@@ -1,9 +1,5 @@
 import { useState } from 'react';
-
-interface AuthFormProps {
-  onAuthSubmit: (password: string) => void;
-  authMessage: string;
-}
+import type { AuthFormProps } from '../types/weather';
 
 export const AuthForm = ({ onAuthSubmit, authMessage }: AuthFormProps) => {
   const [password, setPassword] = useState('');

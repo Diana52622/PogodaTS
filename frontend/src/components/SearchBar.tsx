@@ -1,9 +1,5 @@
 import { useState } from 'react'
-
-interface SearchBarProps {
-  onSearch: (city: string) => Promise<void>
-  initialCity?: string
-}
+import type { SearchBarProps } from '../types/weather';
 
 export const SearchBar = ({ onSearch, initialCity = '' }: SearchBarProps) => {
   const [city, setCity] = useState(initialCity)
