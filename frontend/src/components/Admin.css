@@ -1,4 +1,3 @@
-/* Основные стили блоков */
 .admin-auth,
 .admin-panel {
   max-width: 500px;
@@ -12,7 +11,6 @@
   border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
-/* Вариант 3 - Минималистичные разделители для заголовков */
 .admin-auth h2,
 .admin-panel h2 {
   text-align: center;
@@ -45,7 +43,6 @@
   background: linear-gradient(90deg, transparent, #2196F3, transparent);
 }
 
-/* Стили для формы авторизации */
 .admin-auth form {
   display: flex;
   flex-direction: column;
@@ -74,7 +71,6 @@
   font-weight: 500;
 }
 
-/* Стили для формы добавления мема */
 .admin-panel form {
   display: flex;
   flex-direction: column;
@@ -123,7 +119,6 @@
   margin-top: 1.2rem;
 }
 
-/* Стили для сообщений (ошибки/успех) */
 .admin-auth p,
 .admin-panel p {
   margin-top: 1.2rem;
@@ -146,7 +141,6 @@
   border: 1px solid rgba(76, 175, 80, 0.2);
 }
 
-/* Адаптивные стили */
 @media (max-width: 600px) {
   .admin-auth,
   .admin-panel {
