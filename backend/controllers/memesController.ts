@@ -1,14 +1,7 @@
-import fs from 'fs/promises';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import express, { Request, Response } from 'express';
-import {Meme, MemesData} from './types.js'
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const memesPath = path.resolve(__dirname, '../data/memes.json');
-
-const validCategories = ['hot', 'warm', 'cold', 'normal', 'rain', 'snow', 'thunderstorm'];
+import { Request, Response } from 'express';
+import { Meme } from '../types/types.js';
+import { validCategories } from '../constants/meme.constants.js';
+import { readMemesFile, writeMemesFile } from '../utils/meme.utils.js';
 
 export const addMeme = async (req: Request, res: Response): Promise<Response> => {
     const { category, image, text } = req.body;
@@ -22,17 +15,13 @@ export const addMeme = async (req: Request, res: Response): Promise<Response> =>
     }
 
     try {
-        const data = await fs.readFile(memesPath, 'utf8');
-        const memes: MemesData = JSON.parse(data);
-        
-        if (!memes[category]) {
-            memes[category] = [];
-        }
-
+        const memes = await readMemesFile();
         const newMeme: Meme = { image, text };
+        
+        memes[category] = memes[category] || [];
         memes[category].push(newMeme);
         
-        await fs.writeFile(memesPath, JSON.stringify(memes, null, 2));
+        await writeMemesFile(memes);
         
         return res.status(201).json({ 
             message: 'Meme added successfully',
@@ -46,8 +35,7 @@ export const addMeme = async (req: Request, res: Response): Promise<Response> =>
 
 export const getAllMemes = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const data = await fs.readFile(memesPath, 'utf8');
-        const memes: MemesData = JSON.parse(data);
+        const memes = await readMemesFile();
         return res.json(memes);
     } catch (error) {
         console.error('Error fetching memes:', error);

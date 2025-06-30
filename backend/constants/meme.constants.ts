@@ -1,0 +1,1 @@
+export const validCategories = ['hot', 'warm', 'cold', 'normal', 'rain', 'snow', 'thunderstorm'] as const;
