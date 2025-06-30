@@ -1,4 +1,3 @@
-// src/App.tsx
 import { SearchBar } from './components/SearchBar';
 import { WeatherDisplay } from './components/WeatherDisplay';
 import { MemeDisplay } from './components/MemeDisplay';
